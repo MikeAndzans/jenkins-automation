@@ -30,7 +30,16 @@ pipeline {
         stage('deploy-to-dev') {
             steps {
                 echo 'Deploying to DEV environment...'
+                dir ('python-greetings') {
+                    echo 'Cloning greeting repo...'
+                    git url: env.GREETINGS_REPO, branch: 'main'
 
+                    echo 'Stopping existing DEV PM2 service'
+                    pwsh 'delete greetings-app-dev; if ($LASTEXITCODE -ne 0) { exit 0 }'
+
+                    echo 'Starting DEV PM2 service on port 7001'
+                    pwsh 'pm2 start app.py --name greetings-app-dev -- --port 7001'
+                }
             }
         }
 
@@ -44,7 +53,16 @@ pipeline {
         stage('deploy-to-staging') {
             steps {
                 echo 'Deploying to STAGING environment...'
+                dir ('python-greetings') {
+                    echo 'Cloning greeting repo...'
+                    git url: env.GREETINGS_REPO, branch: 'main'
 
+                    echo 'Stopping existing STAGING PM2 service'
+                    pwsh 'delete greetings-app-stg; if ($LASTEXITCODE -ne 0) { exit 0 }'
+
+                    echo 'Starting STAGING PM2 service on port 7001'
+                    pwsh 'pm2 start app.py --name greetings-app-stg -- --port 7001'
+                }
             }
         }
 
@@ -58,7 +76,16 @@ pipeline {
         stage('deploy-to-preprod') {
             steps {
                 echo 'Deploying to PREPROD environment...'
+                dir ('python-greetings') {
+                    echo 'Cloning greeting repo...'
+                    git url: env.GREETINGS_REPO, branch: 'main'
 
+                    echo 'Stopping existing PREPROD PM2 service'
+                    pwsh 'delete greetings-app-preprod; if ($LASTEXITCODE -ne 0) { exit 0 }'
+
+                    echo 'Starting PREPROD PM2 service on port 7001'
+                    pwsh 'pm2 start app.py --name greetings-app-preprod -- --port 7001'
+                }
             }
         }
 
@@ -72,7 +99,16 @@ pipeline {
         stage('deploy-to-prod') {
             steps {
                 echo 'Deploying to PROD environment...'
+                dir ('python-greetings') {
+                    echo 'Cloning greeting repo...'
+                    git url: env.GREETINGS_REPO, branch: 'main'
 
+                    echo 'Stopping existing PROD PM2 service'
+                    pwsh 'delete greetings-app-prod; if ($LASTEXITCODE -ne 0) { exit 0 }'
+
+                    echo 'Starting PROD PM2 service on port 7001'
+                    pwsh 'pm2 start app.py --name greetings-app-prod -- --port 7001'
+                }
             }
         }
 
