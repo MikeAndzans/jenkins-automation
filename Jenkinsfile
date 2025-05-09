@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo 'Installing all required dependencies...'
                 script {
-                    setupPython(env.GREETINGS_REPO, )
+                    setupPython(env.GREETINGS_REPO, env.GREETINGS_WORKDIR)
                 }
             }
         }
