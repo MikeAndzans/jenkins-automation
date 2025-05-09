@@ -24,7 +24,7 @@ pipeline {
                         python -m pip install -r requirements.txt
                     '''
 
-                    pwsh 'npm --version'
+                    pwsh 'npm.cmd --version'
                     pwsh 'pm2 --version'
                 }
             }
