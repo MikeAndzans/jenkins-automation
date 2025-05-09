@@ -11,7 +11,15 @@ pipeline {
         stage('install-pip-deps') {
             steps {
                 echo 'Installing all required dependencies...'
+                dir('python-greetings') {
+                    git url: env.GREETINGS_REPO, branch: 'main'
+                }
 
+                echo 'Verifying repository contents:'
+                pwsh 'Get-ChildItem -Force'
+                
+                echo 'Installing python dependencies'
+                pwsh 'pip3 install -r requirements.txt'
             }
         }
 
