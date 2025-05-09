@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         GREETINGS_REPO = 'https://github.com/mtararujs/python-greetings.git'
-        JS_TESTS_REPO   = 'https://github.com/mtararujs/course-js-api-framework.git'
-        PROCESS_NAME     = 'jenkins-automation-tests'
+        JS_TESTS_REPO  = 'https://github.com/mtararujs/course-js-api-framework.git'
+        PROCESS_NAME   = 'jenkins-automation-tests' 
     }
 
     stages {
