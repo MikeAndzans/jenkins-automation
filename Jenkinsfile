@@ -18,7 +18,11 @@ pipeline {
                     pwsh 'Get-ChildItem -Force'
                     
                     echo 'Installing python dependencies'
-                    pwsh 'pip3 install -r requirements.txt'
+                    pwsh '''
+                        python --version
+                        python -m pip install --upgrade pip
+                        python -m pip install -r requirements.txt
+                    '''
                 }
             }
         }
