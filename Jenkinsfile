@@ -72,8 +72,8 @@ pipeline {
                     echo 'Stopping existing STAGING PM2 service'
                     bat 'pm2 delete greetings-app-stg || exit /b 0'
 
-                    echo 'Starting STAGING PM2 service on port 7001'
-                    bat 'pm2 start app.py --name greetings-app-stg -- --port 7001'
+                    echo 'Starting STAGING PM2 service on port 7002'
+                    bat 'pm2 start app.py --name greetings-app-stg -- --port 7002'
                 }
             }
         }
@@ -107,8 +107,8 @@ pipeline {
                     echo 'Stopping existing PREPROD PM2 service'
                     bat 'pm2 delete greetings-app-preprod || exit /b 0'
 
-                    echo 'Starting PREPROD PM2 service on port 7001'
-                    bat 'pm2 start app.py --name greetings-app-preprod -- --port 7001'
+                    echo 'Starting PREPROD PM2 service on port 7003'
+                    bat 'pm2 start app.py --name greetings-app-preprod -- --port 7003'
                 }
             }
         }
@@ -142,8 +142,8 @@ pipeline {
                     echo 'Stopping existing PROD PM2 service'
                     bat 'pm2 delete greetings-app-prod || exit /b 0'
 
-                    echo 'Starting PROD PM2 service on port 7001'
-                    bat 'pm2 start app.py --name greetings-app-prod -- --port 7001'
+                    echo 'Starting PROD PM2 service on port 7004'
+                    bat 'pm2 start app.py --name greetings-app-prod -- --port 7004'
                 }
             }
         }
