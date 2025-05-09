@@ -1,9 +1,27 @@
+def setupPython(String repoUrl, String dirName) {
+    dir(dirName) {
+        git url: repoUrl, branch: 'main'
+
+        echo 'Verifying repository contents:'
+        bat 'dir /b /a:-d'
+
+        echo 'Installing python dependencies'
+        bat '''
+            python --version
+            pip3 --version
+            pip3 install -r requirements.txt
+        '''
+    }
+}
+
 pipeline {
     agent any
 
     environment {
         GREETINGS_REPO = 'https://github.com/mtararujs/python-greetings.git'
         JS_TESTS_REPO  = 'https://github.com/mtararujs/course-js-api-framework.git'
+        GREETINGS_WORKDIR = 'python-greetings'
+        API_TESTS_WORKDIR = 'api-tests'
         PROCESS_NAME   = 'jenkins-automation-tests' 
     }
 
@@ -11,18 +29,8 @@ pipeline {
         stage('install-pip-deps') {
             steps {
                 echo 'Installing all required dependencies...'
-                dir('python-greetings') {
-                    git url: env.GREETINGS_REPO, branch: 'main'
-
-                    echo 'Verifying repository contents:'
-                    bat 'dir /b /a:-d'
-                    
-                    echo 'Installing python dependencies'
-                    bat '''
-                        python --version
-                        pip3 --version
-                        pip3 install -r requirements.txt
-                    '''
+                script {
+                    setupPython(env.GREETINGS_REPO, )
                 }
             }
         }
