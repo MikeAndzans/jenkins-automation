@@ -15,10 +15,10 @@ pipeline {
                     git url: env.GREETINGS_REPO, branch: 'main'
 
                     echo 'Verifying repository contents:'
-                    pwsh 'Get-ChildItem -Force'
+                    bat 'dir /b /a:-d'
                     
                     echo 'Installing python dependencies'
-                    pwsh '''
+                    bat '''
                         python --version
                         pip3 --version
                         pip3 install -r requirements.txt
@@ -35,10 +35,10 @@ pipeline {
                     git url: env.GREETINGS_REPO, branch: 'main'
 
                     echo 'Stopping existing DEV PM2 service'
-                    pwsh 'pm2 delete greetings-app-dev; if ($LASTEXITCODE -ne 0) { exit 0 }'
+                    bat 'pm2 delete greetings-app-dev || exit /b 0'
 
                     echo 'Starting DEV PM2 service on port 7001'
-                    pwsh 'pm2 start app.py --name greetings-app-dev -- --port 7001'
+                    bat 'pm2 start app.py --name greetings-app-dev -- --port 7001'
                 }
             }
         }
@@ -58,10 +58,10 @@ pipeline {
                     git url: env.GREETINGS_REPO, branch: 'main'
 
                     echo 'Stopping existing STAGING PM2 service'
-                    pwsh 'pm2 delete greetings-app-stg; if ($LASTEXITCODE -ne 0) { exit 0 }'
+                    bat 'pm2 delete greetings-app-stg || exit /b 0'
 
                     echo 'Starting STAGING PM2 service on port 7001'
-                    pwsh 'pm2 start app.py --name greetings-app-stg -- --port 7001'
+                    bat 'pm2 start app.py --name greetings-app-stg -- --port 7001'
                 }
             }
         }
@@ -81,10 +81,10 @@ pipeline {
                     git url: env.GREETINGS_REPO, branch: 'main'
 
                     echo 'Stopping existing PREPROD PM2 service'
-                    pwsh 'pm2 delete greetings-app-preprod; if ($LASTEXITCODE -ne 0) { exit 0 }'
+                    bat 'pm2 delete greetings-app-preprod || exit /b 0'
 
                     echo 'Starting PREPROD PM2 service on port 7001'
-                    pwsh 'pm2 start app.py --name greetings-app-preprod -- --port 7001'
+                    bat 'pm2 start app.py --name greetings-app-preprod -- --port 7001'
                 }
             }
         }
@@ -104,10 +104,10 @@ pipeline {
                     git url: env.GREETINGS_REPO, branch: 'main'
 
                     echo 'Stopping existing PROD PM2 service'
-                    pwsh 'pm2 delete greetings-app-prod; if ($LASTEXITCODE -ne 0) { exit 0 }'
+                    bat 'pm2 delete greetings-app-prod || exit /b 0'
 
                     echo 'Starting PROD PM2 service on port 7001'
-                    pwsh 'pm2 start app.py --name greetings-app-prod -- --port 7001'
+                    bat 'pm2 start app.py --name greetings-app-prod -- --port 7001'
                 }
             }
         }
