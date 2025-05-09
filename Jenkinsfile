@@ -47,8 +47,8 @@ pipeline {
             steps {
                 echo 'Running tests on DEV environment...'
                 dir ('api-tests') {
-                    echo 'Cloning api-tests repo'
-                    git url: env.JS_TESTS_REPO, branch 'main'
+                    echo 'Cloning api-tests repo...'
+                    git url: env.JS_TESTS_REPO, branch: 'main'
 
                     echo 'Installing npm dependencies'
                     bat 'npm install'
@@ -82,8 +82,8 @@ pipeline {
             steps {
                 echo 'Running tests on STAGING environment...'
                 dir ('api-tests') {
-                    echo 'Cloning api-tests repo'
-                    git url: env.JS_TESTS_REPO, branch 'main'
+                    echo 'Cloning api-tests repo...'
+                    git url: env.JS_TESTS_REPO, branch: 'main'
 
                     echo 'Installing npm dependencies'
                     bat 'npm install'
@@ -117,8 +117,8 @@ pipeline {
             steps {
                 echo 'Running tests on PREPROD environment...'
                 dir ('api-tests') {
-                    echo 'Cloning api-tests repo'
-                    git url: env.JS_TESTS_REPO, branch 'main'
+                    echo 'Cloning api-tests repo...'
+                    git url: env.JS_TESTS_REPO, branch: 'main'
 
                     echo 'Installing npm dependencies'
                     bat 'npm install'
@@ -152,8 +152,8 @@ pipeline {
             steps {
                 echo 'Running tests on PROD environment...'
                 dir ('api-tests') {
-                    echo 'Cloning api-tests repo'
-                    git url: env.JS_TESTS_REPO, branch 'main'
+                    echo 'Cloning api-tests repo...'
+                    git url: env.JS_TESTS_REPO, branch: 'main'
 
                     echo 'Installing npm dependencies'
                     bat 'npm install'
