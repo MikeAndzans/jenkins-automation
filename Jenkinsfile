@@ -27,6 +27,22 @@ def deployToEnv(String repoUrl, String dirName, String envName, int port) {
     }
 }
 
+def runEnvTests(String repoUrl, String dirName, String envName) {
+    dir (dirName) {
+        echo 'Cloning api-tests repo...'
+        git url: repoUrl, branch: 'main'
+
+        echo 'Installing npm dependencies'
+        bat 'npm install'
+
+        echo "Executing ${envName} tests"
+        bat "npm run greetings greetings_${envName}"
+
+        echo "Stopping existing ${envName} PM2 service"
+        bat "pm2 delete greetings-app-${envName} || exit /b 0"
+    }
+}
+
 pipeline {
     agent any
 
@@ -60,18 +76,8 @@ pipeline {
         stage('tests-on-dev') {
             steps {
                 echo 'Running tests on DEV environment...'
-                dir ('api-tests') {
-                    echo 'Cloning api-tests repo...'
-                    git url: env.JS_TESTS_REPO, branch: 'main'
-
-                    echo 'Installing npm dependencies'
-                    bat 'npm install'
-
-                    echo 'Executing DEV tests'
-                    bat 'npm run greetings greetings_dev'
-
-                    echo 'Stopping existing DEV PM2 service'
-                    bat 'pm2 delete greetings-app-dev || exit /b 0'
+                script {
+                    runEnvTests(env.JS_TESTS_REPO, env.API_TESTS_WORKDIR, 'dev')
                 }
             }
         }
@@ -88,18 +94,8 @@ pipeline {
         stage('tests-on-staging') {
             steps {
                 echo 'Running tests on STAGING environment...'
-                dir ('api-tests') {
-                    echo 'Cloning api-tests repo...'
-                    git url: env.JS_TESTS_REPO, branch: 'main'
-
-                    echo 'Installing npm dependencies'
-                    bat 'npm install'
-
-                    echo 'Executing STAGING tests'
-                    bat 'npm run greetings greetings_stg'
-
-                    echo 'Stopping existing STAGING PM2 service'
-                    bat 'pm2 delete greetings-app-stg || exit /b 0'
+                script {
+                    runEnvTests(env.JS_TESTS_REPO, env.API_TESTS_WORKDIR, 'stg')
                 }
             }
         }
@@ -116,18 +112,8 @@ pipeline {
         stage('tests-on-preprod') {
             steps {
                 echo 'Running tests on PREPROD environment...'
-                dir ('api-tests') {
-                    echo 'Cloning api-tests repo...'
-                    git url: env.JS_TESTS_REPO, branch: 'main'
-
-                    echo 'Installing npm dependencies'
-                    bat 'npm install'
-
-                    echo 'Executing PREPROD tests'
-                    bat 'npm run greetings greetings_preprod'
-
-                    echo 'Stopping existing PREPROD PM2 service'
-                    bat 'pm2 delete greetings-app-preprod || exit /b 0'
+                script {
+                    runEnvTests(env.JS_TESTS_REPO, env.API_TESTS_WORKDIR, 'preprod')
                 }
             }
         }
@@ -144,18 +130,8 @@ pipeline {
         stage('tests-on-prod') {
             steps {
                 echo 'Running tests on PROD environment...'
-                dir ('api-tests') {
-                    echo 'Cloning api-tests repo...'
-                    git url: env.JS_TESTS_REPO, branch: 'main'
-
-                    echo 'Installing npm dependencies'
-                    bat 'npm install'
-
-                    echo 'Executing PROD tests'
-                    bat 'npm run greetings greetings_prod'
-
-                    echo 'Stopping existing PROD PM2 service'
-                    bat 'pm2 delete greetings-app-prod || exit /b 0'
+                script {
+                    runEnvTests(env.JS_TESTS_REPO, env.API_TESTS_WORKDIR, 'prod')
                 }
             }
         }
