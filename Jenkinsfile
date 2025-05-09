@@ -19,11 +19,11 @@ def deployToEnv(String repoUrl, String dirName, String envName, int port) {
         echo 'Cloning greeting repo...'
         git url: repoUrl, branch: 'main'
 
-        echo 'Stopping existing ${envName} PM2 service'
-        bat 'pm2 delete greetings-app-${envName} || exit /b 0'
+        echo "Stopping existing ${envName} PM2 service"
+        bat "pm2 delete greetings-app-${envName} || exit /b 0"
 
-        echo 'Starting ${envName} PM2 service on port ${port}'
-        bat 'pm2 start app.py --name greetings-app-${envName} -- --port ${port}'
+        echo "Starting ${envName} PM2 service on port ${port}"
+        bat "pm2 start app.py --name greetings-app-${envName} -- --port ${port}"
     }
 }
 
