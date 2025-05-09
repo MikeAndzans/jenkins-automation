@@ -8,6 +8,15 @@ pipeline {
     }
 
     stages {
+        stage('sanity-chech') {
+            steps {
+                bat 'where npm'
+                bat 'where pm2'
+                bat 'npm --version'
+                bat 'pm2 --version'
+            }
+        }
+
         stage('install-pip-deps') {
             steps {
                 echo 'Installing all required dependencies...'
@@ -23,8 +32,6 @@ pipeline {
                         python -m pip install --upgrade pip
                         python -m pip install -r requirements.txt
                     '''
-                    
-                    pwsh 'pm2 --version'
                 }
             }
         }
