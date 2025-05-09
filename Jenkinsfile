@@ -25,6 +25,7 @@ pipeline {
                     '''
 
                     pwsh 'npm --version'
+                    pwsh 'pm2 --version'
                 }
             }
         }
